@@ -6,7 +6,8 @@ services:
     volumes:
       - ./:/var/www/html
     environment:
-      APP_ENV: dev
+      APP_ENV: test
+      APP_SECRET: $ecretf0rt3sting
       MAILER_DSN: smtp://mailer:1025
     depends_on:
       - db
