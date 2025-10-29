@@ -1,8 +1,11 @@
 framework:
+  test: true
+  session:
+    storage_factory_id: session.storage.factory.mock_file
+
   messenger:
     transports:
       sync: 'sync://'
-
     routing:
       'Symfony\Component\Mailer\Messenger\SendEmailMessage': sync
       # ajoute aussi tes messages custom si tu en as
