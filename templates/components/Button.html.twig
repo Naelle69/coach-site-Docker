@@ -1,0 +1,26 @@
+{% set classes = this.classes() %}
+{% set isLink = href is not empty %}
+
+{% if isLink %}
+  <a href="{{ href }}"
+     class="{{ classes }} d-inline-flex align-items-center gap-2"
+     {{ attributes|raw }}>
+    <span class="align-middle">{{ label|raw }}</span>
+    {% if loading %}
+      <span class="spinner-border spinner-border-sm ms-2 align-middle"
+            role="status" aria-hidden="true"></span>
+    {% endif %}
+  </a>
+{% else %}
+  <button
+     type="{{ type }}"
+     class="{{ classes }} d-inline-flex align-items-center gap-2"
+     {% if disabled or loading %}disabled{% endif %}
+     {{ attributes|raw }}>
+    <span class="align-middle">{{ label|raw }}</span>
+    {% if loading %}
+      <span class="spinner-border spinner-border-sm ms-2 align-middle"
+            role="status" aria-hidden="true"></span>
+    {% endif %}
+  </button>
+{% endif %}

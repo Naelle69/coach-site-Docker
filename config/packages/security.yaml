@@ -1,0 +1,43 @@
+# config/packages/security.yaml
+security:
+  role_hierarchy:
+    ROLE_ADMIN: [ROLE_USER]
+
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    main:
+      provider: app_user_provider
+
+      # Authenticator unique
+      custom_authenticators:
+        - App\Security\UserAuthenticator
+      entry_point: App\Security\UserAuthenticator
+
+      remember_me:
+        secret: '%kernel.secret%'
+        lifetime: 1209600   # 14 jours
+
+
+      # pas de form_login ici
+      logout:
+        path: app_logout
+
+  access_control:
+    - { path: ^/login$, roles: PUBLIC_ACCESS }
+    - { path: ^/admin,  roles: ROLE_ADMIN }
+    - { path: ^/(_(profiler|wdt)) , roles: PUBLIC_ACCESS }
+    - { path: ^/ui,               roles: PUBLIC_ACCESS }   # terrain de jeu
+    - { path: ^/$,                roles: PUBLIC_ACCESS }   # ACCUEIL
+    - { path: ^/(a-propos|activites|contact), roles: PUBLIC_ACCESS }

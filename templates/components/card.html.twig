@@ -1,0 +1,35 @@
+{# templates/components/Card.html.twig #}
+{% set classes = this.classes() %}
+{% set Tag = href ? 'a' : 'div' %}
+
+<{{ Tag }}
+  {% if href %} href="{{ href }}" {% endif %}
+  class="{{ classes }}"
+  {% if href %}style="text-decoration:none;"{% endif %}
+>
+  {% if image %}
+    <div class="card-img-wrapper position-relative">
+      <img src="{{ image }}" class="w-100 h-100 object-fit-cover" alt="{{ imageAlt ?? '' }}" loading="lazy">
+      {% if badge %}
+        <span class="badge badge-overlay">{{ badge }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="card-body-content">
+    {% if title %}
+      <h2 class="card-title-large mb-3">{{ title }}</h2>
+    {% endif %}
+
+    {% if subtitle %}
+      <p class="card-subtitle-large mb-0">{{ subtitle }}</p>
+    {% endif %}
+
+    {% if text %}
+      <p class="card-text-large mb-4">{{ text }}</p>
+    {% endif %}
+
+    {# Contenu injecté via le block principal #}
+    {{ block('content') }}
+  </div>
+</{{ Tag }}>

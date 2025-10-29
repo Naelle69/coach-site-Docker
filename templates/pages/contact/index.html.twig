@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Coach Fitness{% endblock %}
+
+{% block body %}
+  <div class="container py-4">
+
+    {# Flash messages #}
+    {% for label, messages in app.flashes %}
+      {% for m in messages %}
+        <div class="alert alert-{{ label }} mb-3" role="alert">{{ m }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    <h1 class="mb-4">Contact</h1>
+
+    <form method="post" action="{{ path('app_contact') }}" novalidate>
+      <input type="hidden" name="_token" value="{{ csrf_token('contact_form') }}"/>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom</label>
+        <input id="name" name="name" class="form-control" required
+              autocomplete="name" />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" name="email" type="email" class="form-control" required
+              autocomplete="email" inputmode="email" />
+      </div>
+
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+  </div>
+  {% include 'partials/_informations_pratiques.html.twig' %}
+{% endblock %}

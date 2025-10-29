@@ -1,0 +1,83 @@
+/* public/css/cards.css */
+
+/* ========== GLASS CARD WHITE - Plus transparent ========== */
+.glass-card-white {
+  background: rgba(255, 255, 255, 0.15) !important; /* Plus transparent */
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Bordure bien visible */
+.glass-border {
+  border: 2px solid rgba(255, 255, 255, 0.5) !important; /* Plus épaisse et plus visible */
+}
+
+.glass-card-dark {
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ========== CARD CONTENT ========== */
+.card-body-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card-title-large {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.card-subtitle-large {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.card-text-large {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .glass-card-white,
+  .glass-card-dark {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .card-title-large {
+    font-size: 1.75rem;
+  }
+
+  .card-subtitle-large,
+  .card-text-large {
+    font-size: 1rem;
+  }
+}
+
+/* ========== HOVER EFFECTS ========== */
+a.glass-card-white:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+a.glass-card-dark:hover {
+  background: rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}

@@ -1,0 +1,8 @@
+framework:
+  messenger:
+    transports:
+      sync: 'sync://'
+
+    routing:
+      'Symfony\Component\Mailer\Messenger\SendEmailMessage': sync
+      # ajoute aussi tes messages custom si tu en as

@@ -1,0 +1,181 @@
+{# templates/components/Reviews.html.twig #}
+<section id="reviews" 
+  class="py-5 mb-4 mt-2"
+  style="background: var(--body-bg);">
+  <div class="container">
+  {# Messages flash uniquement dans la section Avis #}
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="alert alert-{{ label }} mb-4" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+
+    <h2 class="text-center fw-bold fs-fluid-hero mb-4" style="color: var(--primary-strong);">
+      Ils m’ont fait confiance
+    </h2>
+
+    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 mb-4">
+      {% for r in this.items %}
+        <div class="col">
+          <article class="card h-100 border rounded-4 shadow-sm" style="background: var(--surface);">
+            <div class="card-body p-4">
+              <div class="mb-2" aria-label="{{ r.rating }} étoiles">
+                {% for i in 1..r.rating %}★{% endfor %}
+                {% for i in 1..(5 - r.rating) %}☆{% endfor %}
+              </div>
+              <blockquote class="fst-italic mb-2">“{{ r.message }}”</blockquote>
+              <cite class="text-body-secondary">— {{ r.nickname }}</cite>
+            </div>
+          </article>
+        </div>
+      {% else %}
+        <p class="text-center text-body-secondary my-5">Aucun avis pour le moment.</p>
+      {% endfor %}
+    </div>
+    
+{% if this.pages > 1 %}
+  <nav aria-label="Pagination des avis">
+    <ul class="pagination justify-content-center">
+      <li class="page-item {{ this.page <= 1 ? 'disabled' }}">
+        <a class="page-link" href="?page={{ this.page - 1 }}" aria-label="Précédent">&laquo;</a>
+      </li>
+
+      {% for i in 1..this.pages %}
+        <li class="page-item {{ i == this.page ? 'active' }}">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+      {% endfor %}
+
+      <li class="page-item {{ this.page >= this.pages ? 'disabled' }}">
+        <a class="page-link" href="?page={{ this.page + 1 }}" aria-label="Suivant">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
+{% endif %}
+
+
+
+    <div class="text-center mt-4">
+      <twig:Button
+        label="Laisser un avis"
+        variant="filled"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#reviewModal"
+      />
+    </div>
+  </div>
+</section>
+
+{# Modal Avis – thème compatible #}
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg"
+         style="background: var(--surface); color: var(--text);">
+      <div class="modal-header border-0 border-bottom"
+           style="border-color: var(--bs-border-color);">
+        <h3 class="modal-title fw-bold" id="reviewModalLabel"
+            style="color: var(--primary-strong);">
+          Laisser un avis
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body">
+        {{ form_start(this.formView, { attr: { class: 'vstack gap-3' } }) }}
+
+          {# Champs #}
+          <div class="d-flex row g-3">
+            <div>
+              {{ form_label(this.formView.firstName, 'Prénom', { label_attr: { class: 'form-label fw-semibold' } }) }}
+              {{ form_widget(this.formView.firstName, { attr: { class: 'form-control' } }) }}
+              {{ form_errors(this.formView.firstName) }}
+            </div>
+
+            <div>
+              {{ form_label(this.formView.lastName, 'Nom', { label_attr: { class: 'form-label fw-semibold' } }) }}
+              {{ form_widget(this.formView.lastName, { attr: { class: 'form-control' } }) }}
+              {{ form_errors(this.formView.lastName) }}
+            </div>
+          </div>
+
+          <div>
+            {{ form_label(this.formView.nickname, 'Surnom (affiché)', { label_attr: { class: 'form-label fw-semibold' } }) }}
+            {{ form_widget(this.formView.nickname, { attr: { class: 'form-control' } }) }}
+            {{ form_errors(this.formView.nickname) }}
+          </div>
+
+          {# --- RATING STARS (A11Y + THEMES) --- #}
+          <div>
+            <label id="ratingLegend" class="form-label fw-semibold d-block">Note</label>
+
+            <fieldset
+              class="rating"
+              role="radiogroup"
+              aria-labelledby="ratingLegend"
+              aria-describedby="ratingHelp"
+            >
+              {% set fieldName = this.formView.rating.vars.full_name %}
+              {% set current = this.formView.rating.vars.value|default(0) %}
+
+              {# Ordre normal 1 → 5 #}
+              {% for v in 1..5 %}
+                {% set id = 'rating_star_' ~ v %}
+                <input
+                  class="rating-input"
+                  type="radio"
+                  id="{{ id }}"
+                  name="{{ fieldName }}"
+                  value="{{ v }}"
+                  aria-label="{{ v }} étoile{% if v > 1 %}s{% endif %}"
+                  {% if current == v %}checked{% endif %}
+                >
+                <label class="rating-label" for="{{ id }}" title="{{ v }} étoile{% if v > 1 %}s{% endif %}">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </label>
+              {% endfor %}
+            </fieldset>
+
+            <small id="ratingHelp" class="text-body-secondary">
+              Utilisez les flèches gauche/droite pour choisir de 1 à 5 étoiles.
+            </small>
+            {{ form_errors(this.formView.rating) }}
+          </div>
+          {# --- /RATING STARS --- #}
+
+          <div>
+            {{ form_label(this.formView.message, 'Votre message', { label_attr: { class: 'form-label fw-semibold' } }) }}
+            {{ form_widget(this.formView.message, { attr: { class: 'form-control', rows: 4 } }) }}
+            {{ form_errors(this.formView.message) }}
+          </div>
+
+          {# ... champs du formulaire ... #}
+
+          <div class="d-flex justify-content-end mt-2">
+            <twig:Button
+              label="Envoyer"
+              type="submit"
+              variant="filled"
+              size="md"
+              class="rounded-pill px-4"
+            />
+          </div>
+
+          {# Rendre seulement le token CSRF #}
+          {{ form_row(this.formView._token) }}
+
+          {# Empêche le rendu des champs non rendus (évite le double affichage des radios) #}
+        {{ form_end(this.formView, { render_rest: false }) }}
+
+        <p class="meduim text-body-secondary mt-3 mb-0" style="color: var(--primary-strong);">
+          Votre avis sera publié après validation par l’administratrice.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,40 @@
+{% set heroBg = asset('medias/image-hero.avif') %}
+
+<header
+  class="position-relative d-flex align-items-center min-vh-100 mt-5"
+  style="background-image:url('{{ heroBg }}'); background-size:cover; background-position:center;"
+  role="banner"
+>
+  <div class="container hero-content py-5">
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        
+        <twig:Card 
+          variant="glass-white" 
+          border="true"
+          textColor="white"
+          class="p-4 p-md-5"
+        >
+          <h1 class="display-5 fw-bold mb-3">
+            Bouger, progresser, respirer : un coaching qui s'adapte à vous.
+          </h1>
+          
+          <p class="lead mb-4" style="font-size: 1.1rem;">
+            Coach diplômée d'État, plus de 15 ans d'expérience en fitness. 
+            Séances individuelles ou collectives à Saint-Georges et alentours 
+            — en extérieur, en salle ou à domicile.
+          </p>
+          
+          <twig:Button 
+            label="Contactez-moi pour en savoir plus"
+            href="{{ path('app_contact') }}"
+            variant="glass-brand"
+            size="lg"
+            class="rounded-pill px-4"
+          />
+        </twig:Card>
+
+      </div>
+    </div>
+  </div>
+</header>

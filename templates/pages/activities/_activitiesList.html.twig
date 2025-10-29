@@ -1,0 +1,51 @@
+
+    {# === BOUCLE ACTIVITÉS === #}
+<div  style="background: var(--body-bg);">
+  <div class=" container">
+    {% for a in activities %}
+      {% set swap = loop.index is even %}
+
+      <section id="{{ a.slug }}"
+               class="row g-4 align-items-center py-5 ">
+        {# Image #}
+        <div class="col-12 col-lg-6 {{ swap ? 'order-lg-2' : '' }}">
+          <img src="{{ asset(a.image) }}"
+               alt="{{ a.title }}"
+               class="img-fluid rounded-4 shadow-sm w-100" loading="lazy">
+        </div>
+
+        {# Texte #}
+        <div class="col-12 col-lg-6 {{ swap ? 'order-lg-1' : '' }}">
+          <h2 class="h3 mb-2 fs-fluid-hero fw-bold" style="color: var(--primary-strong);">
+            {{ a.title }}
+            {% if a.location %}<small class="text-body-secondary">({{ a.location }})</small>{% endif %}
+          </h2>
+
+          {% if a.description %}
+            <p class="mb-3">{{ a.description }}</p>
+          {% endif %}
+
+          {% if a.benefits is iterable and a.benefits|length %}
+            <ul class="mb-3 list-unstyled">
+              {% for b in a.benefits %}
+                <li class="d-flex gap-2 mb-1"  style="color: var(--text);">
+                  <span class="pt-1" aria-hidden="true" style="color: var(--primary-2)">✓</span>
+                  <span>{{ b }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <twig:Button
+            label="{{ a.buttonText ?? 'Me contacter' }}"
+            href="{{ path('app_contact') }}#{{ a.slug }}"
+            variant="filled"
+            class="mt-1"
+          />
+        </div>
+      </section>
+    {% else %}
+      <p class="text-center text-body-secondary">Aucune activité publiée pour le moment.</p>
+    {% endfor %}
+  </div>
+</div>

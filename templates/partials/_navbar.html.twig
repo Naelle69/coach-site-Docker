@@ -1,0 +1,48 @@
+{# templates/components/navbar.html.twig #}
+<nav 
+  class="navbar navbar-expand-lg fixed-top shadow-sm"
+  style="background-color: var(--primary);"
+>
+  <div class="container text-text">
+    <a class="navbar-brand fw-semibold fs-fluid-lead d-flex flex-wrap" href="{{ path('app_home') }}" style="color: var(--bs-navbar-color);">
+      Caroline FRAGNOUD • Coach Fitness • Saint-Georges • Lyon
+    </a>
+
+    <button 
+      class="navbar-toggler border-0" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navMain"
+      aria-controls="navMain"
+      aria-expanded="false"
+      aria-label="Menu"
+    >
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-text" id="navMain">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item">
+          <a class="nav-link fs-fluid-badge" href="{{ path('app_home') }}">À propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-fluid-badge" href="{{ path('app_activities') }}">Activités</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-fluid-badge" href="{{ path('app_contact') }}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <button 
+            class="btn btn-light btn-sm fs-fluid-badge rounded-pill px-4 fw-semibold border-0" 
+            type="button"
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#accessibilityPanel"
+            aria-controls="accessibilityPanel"
+          >
+            <i class="bi bi-eye" aria-hidden="true"></i>  Accessibilité
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,69 @@
+/* ===============================
+   BOUTONS COMMUNS
+   =============================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;       /* ← centre mieux dans le flux inline */
+              /* ← évite les décalages selon la police */
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  gap: 0.4rem;
+  padding: 0.6rem 1.4rem;       /* ← léger padding pour garder de la hauteur visuelle */
+}
+
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* ===============================
+   VARIANTES
+   =============================== */
+
+/* 🟠 1. Bouton plein orange */
+.bg-corail {
+  background: var(--primary);
+  color: #fff !important;
+  border: 1px solid var(--primary);
+}
+.bg-corail:hover {
+  background: var(--primary-strong);
+  border-color: var(--primary-strong);
+  transform: translateY(-1px);
+}
+
+/* 🌫️ 2. Bouton effet verre "orange" (ex btn-glass-green) */
+.btn-glass-orange {
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  color: #fff !important;
+  border: 1px solid color-mix(in srgb, var(--primary) 80%, #fff 0%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 20px rgba(0,0,0,.18);
+}
+.btn-glass-orange:hover {
+  background: color-mix(in srgb, var(--primary) 55%, transparent);
+  transform: scale(1.02) translateY(-1px);
+}
+
+/* ⚪ 3. Bouton effet verre clair (pour fonds foncés) */
+.btn-glass-light {
+  background: rgba(255,255,255,0.18);
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.btn-glass-light:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.03) translateY(-1px);
+}
+
+/* Effet clic */
+.btn:active {
+  transform: translateY(0);
+}

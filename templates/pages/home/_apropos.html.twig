@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos - Coach Fitness Saint-Georges{% endblock %}
+
+{% block body %}
+<section id="apropos" class="py-5 text-text" style="background: var(--body-bg);">
+  <div class="container py-5">
+    <div class="row g-4 align-items-center align-items-lg-stretch">
+
+      {# Image - Accessibilité et responsive #}
+      <div class="col-12 col-lg-4">
+        <img
+          src="{{ asset('medias/prof.Salle.avif') }}"
+          alt="Coach sportive encadrant une séance de fitness à Lyon"
+          class="w-100 h-100 object-fit-cover rounded-3 shadow-sm"
+          style="min-height: 300px;"
+          loading="lazy"
+        >
+      </div>
+
+      {# Contenu texte #}
+      <div class="col-12 col-lg-8">
+        <article class="w-100 h-100">
+          <h2 class="h2 mb-3 fw-bold fs-fluid-hero" style="color: var(--primary-strong);">À propos</h2>
+
+          <p>
+            Le mouvement fait partie de ma vie depuis toujours. Issue de la gymnastique
+            artistique, j'ai exploré différents arts martiaux, puis le crossfit et l'hyrox
+            que je pratique aujourd'hui. Diplômée d'une licence STAPS en entraînement sportif
+            et d'un BPJEPS AGFF, j'enseigne le fitness depuis plus de 15 ans dans différentes
+            structures (salles de sport à Montpellier et Lille, MJC à Lyon…).
+          </p>
+
+          <p>
+            J'ai accompagné des publics variés : cours collectifs Les Mills (Pump, Attack,
+            RPM, Balance, CXWorx, Grit…), cours traditionnels (CAF, Step, Body sculpt,
+            Gym douce), mais aussi coaching en musculation, Pilates et stretching.
+          </p>
+
+          <p class="mb-0">
+            Aujourd'hui, je développe mon activité dans le Vieux Lyon à 100 m environ de
+            la cathédrale Saint-Jean, avec la volonté de proposer un coaching de proximité,
+            accessible et adapté aux besoins de chacun.
+          </p>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

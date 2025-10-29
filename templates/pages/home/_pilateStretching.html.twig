@@ -1,0 +1,51 @@
+{# templates/partials/_circuit_exterieur.html.twig #}
+<section 
+  class="position-relative overflow-hidden d-flex align-items-center justify-content-center text-white text-center"
+  style="
+    background-image: url('{{ asset('medias/prof.Salle.avif') }}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 60vh;
+  "
+  aria-label="Séance de circuit training en extérieur à Saint-Georges"
+>
+  {# Overlay pour contraste du texte #}
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.45));">
+  </div>
+
+  <div class="container position-relative py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+
+        {# Badge #}
+        <p 
+          class="mb-3 d-inline-block px-3 py-2 rounded-pill fw-semibold text-uppercase"
+          style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                 background: rgba(255, 255, 255, 0.15);
+                 border: 1px solid rgba(255,255,255,.3);">
+          Intérieur • Concentration
+        </p>
+
+        {# Titre #}
+        <h2 class="display-6 fw-bold mb-3 fs-fluid-hero">
+          Pilates & Stretching en petit groupe
+        </h2>
+
+        {# Texte #}
+        <p class="lead mb-4 fs-fluid-lead">
+          Renforcement et cardio par intervalles. Utilisation du petit matériel et du mobilier urbain.
+        </p>
+
+        {# Bouton réutilisable #}
+        <twig:Button
+          label="Découvrir le pilate"
+          href="{{ path('app_activities') }}#pilate"
+          variant="glass-brand"
+        />
+
+      </div>
+    </div>
+  </div>
+</section>

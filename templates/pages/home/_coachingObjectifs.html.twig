@@ -1,0 +1,44 @@
+{# templates/home/index.html.twig #}
+
+{# Section Coaching & Objectifs #}
+<section class="py-5" style="background: var(--body-bg);">
+  <div class="container py-4">
+    <div class="row g-4 align-items-center">
+      
+      {# Coaching à la demande #}
+      <div class="col-12 col-lg-7">
+        <h2 class="h2 mb-3 fw-bold fs-fluid-hero" style="color: var(--primary-strong);">
+          Un coaching à la demande
+        </h2>
+        <p class="mb-4">
+          Séances individuelles ou petits groupes. À domicile, en extérieur ou en salle. 
+          Je me déplace avec mon matériel (poids, élastiques, TRX, kettlebell…).
+        </p>
+        <twig:Button 
+          label="Voir toutes les activités"
+          href="{{ path('app_activities') }}"
+          variant="filled"
+          size="lg"
+          class="rounded-pill"
+        />
+      </div>
+
+      {# Objectifs #}
+      <div class="col-12 col-lg-5">
+        <h2 class="h2 mb-3 fw-bold fs-fluid-hero" style="color: var(--primary-strong);">
+          Objectifs
+        </h2>
+        {# Dans le template #}
+        <ul class="list-unstyled">
+        {% for objectif in objectifs %}
+            <li class="mb-2 d-flex align-items-start" style="color: var(--text);">
+            <span class="me-2" style="color: var(--primary-2);">✓</span>
+            <span>{{ objectif }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</section>

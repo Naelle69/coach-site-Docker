@@ -1,0 +1,89 @@
+{# Panneau latéral Accessibilité #}
+<div
+  id="accessibilityPanel"
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  aria-labelledby="accessibilityPanelLabel"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  style="--bs-offcanvas-width: 380px;" 
+>
+  <div class="offcanvas-header border-bottom bg-body">
+    <h5 class="offcanvas-title fw-semibold d-flex align-items-center" id="accessibilityPanelLabel">
+      <span class="me-2"><i class="bi bi-eye" aria-hidden="true"></i> </span> Options d’accessibilité
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    {# === Thème === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">🎨 Thème</h6>
+      <div class="btn-group w-100" role="group" aria-label="Sélection du thème">
+        <input type="radio" class="btn-check" name="theme" id="theme-energie" autocomplete="off">
+        <label class="btn btn-outline-primary" for="theme-energie" onclick="setTheme('energie')">☀️ Clair</label>
+
+        <input type="radio" class="btn-check" name="theme" id="theme-nuit" autocomplete="off">
+        <label class="btn btn-outline-primary" for="theme-nuit" onclick="setTheme('nuit')">🌙 Sombre</label>
+      </div>
+    </section>
+
+    {# === Taille du texte === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">🔠 Taille du texte</h6>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary flex-fill" onclick="changeFontSize('decrease')">A-</button>
+        <button class="btn btn-outline-secondary flex-fill" onclick="changeFontSize('reset')">A</button>
+        <button class="btn btn-outline-secondary flex-fill" onclick="changeFontSize('increase')">A+</button>
+      </div>
+      <div class="text-center mt-2">
+        <small class="text-body-secondary">Taille : <strong id="font-size-indicator">100%</strong></small>
+      </div>
+    </section>
+
+    {# === Espacement === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">📐 Espacement</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="spacing-toggle" onchange="toggleSpacing(this.checked)">
+        <label class="form-check-label" for="spacing-toggle">Augmenter l’espacement des lignes</label>
+      </div>
+    </section>
+
+    {# === Contraste === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">🌓 Contraste</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="contrast-toggle" onchange="toggleHighContrast(this.checked)">
+        <label class="form-check-label" for="contrast-toggle">Contraste élevé</label>
+      </div>
+    </section>
+
+    {# === Police === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">✍️ Police</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="dyslexia-toggle" onchange="toggleDyslexiaFont(this.checked)">
+        <label class="form-check-label" for="dyslexia-toggle">Police adaptée dyslexie</label>
+      </div>
+    </section>
+
+    {# === Liens soulignés === #}
+    <section class="mb-4 pb-4 border-bottom">
+      <h6 class="fw-semibold mb-3">🧩 Liens</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="underline-toggle" onchange="toggleUnderlineLinks(this.checked)">
+        <label class="form-check-label" for="underline-toggle">Souligner tous les liens</label>
+      </div>
+    </section>
+
+    {# === Réinitialiser === #}
+    <div class="d-grid">
+      <button class="btn btn-outline-danger" onclick="resetAccessibility()">🔄 Réinitialiser</button>
+    </div>
+
+    <div class="alert alert-info mt-4 mb-0 small">
+      💡 Vos préférences sont sauvegardées automatiquement.
+    </div>
+  </div>
+</div>

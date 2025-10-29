@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<main class="min-vh-100 d-flex align-items-center justify-content-center py-5">
+  <section class="container" style="max-width: 520px;">
+    {# Titre à l’intérieur de la carte #}
+    <h1 class="h3 fw-bold fs-fluid-hero mb-3 text-center" style="color: var(--primary-strong);">
+      Connexion
+    </h1>
+    <div class="card border-1 shadow-sm rounded-4" style="background: var(--surface);">
+      <div class="card-body p-4 p-md-5">
+
+        {# Erreur de sécurité éventuelle #}
+        {% if error %}
+          <div class="alert alert-danger" role="alert">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+          </div>
+        {% endif %}
+
+        <form method="post" action="{{ path('app_login') }}" class="vstack gap-3" novalidate>
+          <div>
+            <label for="inputEmail" class="form-label">Email</label>
+            <input
+              id="inputEmail"
+              name="_username"                    {# l’authenticator lit _username #}
+              type="email"
+              value="{{ last_username }}"
+              class="form-control rounded-3"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="inputPassword" class="form-label">Mot de passe</label>
+            <input
+              id="inputPassword"
+              name="_password"                   {# l’authenticator lit _password #}
+              type="password"
+              class="form-control rounded-3"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+          <div class="d-flex justify-content-between align-items-center">
+            {# checkbox conforme à tes couleurs #}
+            <div class="form-check">
+              <input class="form-check-input rounded" type="checkbox" name="_remember_me" id="rememberMe" checked>
+              <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+            </div>
+
+            {# Mot de passe oublié : modal (pas de route nécessaire) #}
+            <button
+              type="button"
+              class="btn btn-link p-0 small text-decoration-none"
+              data-bs-toggle="modal"
+              data-bs-target="#forgotModal"
+              style="color: var(--primary-strong);"
+            >
+              Mot de passe oublié ?
+            </button>
+          </div>
+
+          <twig:Button
+            label="Se connecter"
+            type="submit"
+            variant="filled"
+            size="lg"
+            class="rounded-pill mt-2"
+          />
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+{# --- Modal “Mot de passe oublié ?” --- #}
+<div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="forgotModalLabel">Réinitialiser le mot de passe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <form method="post" action="#">
+        <div class="modal-body vstack gap-3">
+          <p class="small text-body-secondary m-0">
+            Entrez votre adresse email. Si un compte existe, vous recevrez un lien de réinitialisation.
+          </p>
+          <div>
+            <label for="forgotEmail" class="form-label">Email</label>
+            <input id="forgotEmail" name="email" type="email" class="form-control rounded-3" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary"
+                  style="background: var(--primary); border-color: var(--primary);">
+            Envoyer le lien
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

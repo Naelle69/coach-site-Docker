@@ -1,0 +1,26 @@
+/* Titres de héros / grandes sections */
+.fs-fluid-hero {
+  /* min, préférée (fonction de la largeur), max */
+  font-size: clamp(1.5rem, 1.1rem + 3vw, 3rem);
+  line-height: 1.15;
+}
+
+/* Sous-titres / leads */
+.fs-fluid-lead {
+  font-size: clamp(1.1rem, 1rem + 1vw, 1.5rem);
+  line-height: 1.5;
+}
+
+/* Petits badges / surimpressions */
+.fs-fluid-badge {
+  font-size: clamp(.85rem, .8rem + .5vw, 1rem);
+  line-height: 1.2;
+}
+
+/* Paragraphes (texte courant) — fluide & lisible */
+p {
+  font-size: clamp(0.95rem, 0.90rem + 0.50vw, 1.125rem);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+

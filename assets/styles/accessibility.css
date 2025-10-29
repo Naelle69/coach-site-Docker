@@ -1,0 +1,310 @@
+/* ====== THEMES + ACCESSIBILITÉ (tout en un) ====== */
+
+/* — Thème clair "energie" — */
+:root[data-theme="energie"] {
+  /* Palette perso */
+  --primary:        #FcA255;
+  --primary-strong: #9E4C00;
+  --primary-2:      rgb(255, 136, 32);
+  --secondary:      #fcd694;
+  --surface:        #ffffff;
+  --muted:          #ffffff;
+  --text:           #1B1F26;
+  --white:          #FFFFFF;
+  --grey:           #828282;
+  --body-bg:        #fffff7;
+  --body-text:      #242c3a;
+  
+  /* Mapping Bootstrap (pour classes bg-*, text-*, etc.) */
+  --bs-body-bg:          var(--body-bg);
+  --bs-body-color:       var(--text);
+  --bs-surface:          var(--surface);
+  --bs-primary:          var(--primary);
+  --bs-primary-2:        var(--primary-2);
+  --bs-secondary:        var(--secondary);
+  --bs-link-color:       var(--primary);
+  --bs-link-hover-color: var(--primary-strong);
+  --bs-secondary-color:  var(--text);
+  --bs-navbar-bg:             var(--primary);
+  --bs-navbar-color:          var(--text);
+  --bs-navbar-hover-color:    var(--white);
+
+  --bs-border-color: color-mix(in srgb, var(--text) 25%, transparent);
+}
+
+/* — Thème sombre "nuit" — */
+:root[data-theme="nuit"] {
+  --primary:#1B1F26;
+  --primary-2 :#fcd694;
+  --primary-strong:#FFD8A0;
+  --secondary:#1B1F26;
+  --surface:#1B1F26;
+  --muted:#2E3440;
+  --text:#ffffff;
+  --white:#fff;
+  --grey: #fff;
+  --body-bg: #2E3440;
+  --body-text: #FFFFFF; 
+
+  --bs-body-bg: var(--surface);
+  --bs-body-color: var(--text);
+  --bs-surface: var(--surface);
+  --bs-primary: var(--primary);
+  --bs-primary-2: var(--secondary);
+  --bs-secondary-color: var(--text);
+  --bs-secondary:        var(--secondary);
+  --bs-link-color:       var(--primary);
+  --bs-link-hover-color: var(--primary-strong);
+}
+
+
+
+/* ==== CONTRASTE ÉLEVÉ PILOTÉ PAR ATTRIBUT ==== */
+/* Plus spécifique que :root[data-theme="..."] */
+:root[data-contrast="high"],
+html[data-contrast="high"] {
+  /* Vars “boostées” */
+  --body-bg: #000000;
+  --text: #ffffff;
+  --grey: #000000;
+  --muted: #f2f2f2;
+  --surface:#0c0e13;
+  --primary:      rgb(255, 119, 0);
+  --primary-strong: #782a00;
+  --primary-2 :  #ffcc73;
+
+  --secondary:      #0c0e13;
+  --muted:          #F7FAFC;
+  --white:          #FFFFFF;
+  --grey:           #444444;
+  --body-text:      #ffffff;
+ 
+
+  /* Mapping Bootstrap basé sur ces vars */
+  --bs-body-bg: var(--body-bg);
+  --bs-body-color: var(--text);
+  --bs-border-color: currentColor; /* bordures très lisibles */
+  --bs-link-color: #000000;
+  --bs-link-hover-color: #000000;
+  --bs-surface:       var(--surface);
+  --bs-primary:        var(--primary);
+  --bs-primary:    var(--primary);
+  --bs-primary-strong: var(--primary-strong);
+}
+
+/* Séparateurs & bordures visibles en contraste élevé */
+:root[data-contrast="high"] hr {
+  border: 0 !important;
+  border-top: 1px solid currentColor !important;
+  opacity: 1 !important;
+}
+:root[data-contrast="high"] .border {
+  border-color: currentColor !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+/* Ta règle .border doit suivre la variable Bootstrap (et pas --grey) */
+.border {
+  border-style: solid;
+  border-color: var(--bs-border-color);
+  border-width: 1px;
+}
+
+@media (prefers-contrast: more) {
+  :root { --bs-border-color: currentColor; }
+  hr {
+    border-top-color: currentColor !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :root, body {
+    forced-color-adjust: auto;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  /* Bordures et séparateurs lisibles partout */
+  *,
+  *::before,
+  *::after {
+    border-color: CanvasText !important;
+  }
+
+  hr {
+    border: 0 !important;
+    border-top: 1px solid CanvasText !important;
+    opacity: 1 !important;
+  }
+
+  /* Focus net et système */
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px;
+    box-shadow: none !important;
+  }
+}
+
+
+
+/* Liens soulignés */
+.underline-links a {
+  text-decoration: underline !important;
+}
+
+/* Focus visible (en cohérence avec ta marque) */
+*:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 2px;
+}
+/* Dans votre fichier CSS (accessibility.css ou themes.css) */
+
+
+
+/* ========================================
+   BOUTONS DE SÉLECTION DE THÈME - VOS COULEURS
+   ======================================== */
+
+/* Container des boutons */
+.btn-group {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: var(--text) !important; 
+}
+
+/* Tous les boutons de thème (état normal - NON sélectionné) */
+.btn-outline-primary {
+  color: var(--text) !important;
+  border-color: var(--muted) !important;
+  background-color: var(--surface) !important;
+  font-weight: 500;
+  padding: 0.625rem 1rem;
+  transition: all 0.2s ease;
+}
+
+/* Hover sur les boutons non sélectionnés */
+.btn-outline-primary:hover {
+  background-color: var(--secondary) !important;  /* ✅ Fond jaune doré */
+  border-color: var(--primary) !important;
+  color: var(--text) !important;                  /* ✅ Texte reste noir/blanc */
+  transform: translateY(-1px);
+}
+
+/* Bouton sélectionné (actif) - ORANGE */
+.btn-check:checked + .btn-outline-primary {
+  background-color: var(--primary) !important;  
+  border-color: var(--primary) !important;
+  color: var(--white) !important;                 /* ✅ Texte BLANC sur orange */
+  font-weight: 600;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* Focus visible (accessibilité) */
+.btn-outline-primary:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent) !important;
+}
+
+/* Animation au clic */
+.btn-outline-primary:active {
+  transform: scale(0.98);
+}
+
+/* Séparateur entre les boutons */
+.btn-group > .btn:not(:last-child) {
+  border-right-color: var(--muted) !important;
+}
+
+
+
+/* ====== RATING STARS (THEMES + A11Y) ====== */
+.rating {
+  /* variables ajustables si besoin */
+  --star-size: 1.75rem;
+  --star-gap: .25rem;
+  --star-default: var(--grey);  /* grisé adapté au thème */
+  --star-active:  var(--primary);           /* ORANGE du thème (Google-like) */
+  --star-focus:   var(--primary-2);             /* anneau focus cohérent marque */
+
+  display: inline-flex;
+  flex-direction: row-reverse; /* permet :checked ~ label */
+  gap: var(--star-gap);
+  align-items: center;
+  line-height: 1;
+}
+
+.rating-input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: 0; padding: 0; border: 0;
+  clip: rect(0 0 0 0); clip-path: inset(100%);
+  overflow: hidden; white-space: nowrap;
+}
+
+.rating-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.rating-label svg {
+  width: var(--star-size);
+  height: var(--star-size);
+  fill: var(--star-default); 
+  stroke: none;
+  transition: transform .05s ease, fill .12s ease, filter .12s ease;
+}
+
+/* Hover progressif (l’étoile + toutes celles à gauche) */
+.rating-label:hover svg,
+.rating-label:hover ~ .rating-label svg {
+  fill: var(--star-active);
+}
+
+/* Sélection (valeur choisie) */
+.rating-input:checked ~ .rating-label svg {
+  fill: var(--star-active);
+}
+
+/* Focus visible sur la radio associée → halo sur l’étoile */
+.rating-input:focus-visible + .rating-label svg {
+  /* tu as déjà un outline global ; pour les SVG on simule via drop-shadow */
+  filter: drop-shadow(0 0 0.25rem color-mix(in srgb, var(--star-focus) 60%, transparent));
+  /* et un contour léger pour le contraste */
+  stroke: var(--star-focus);
+  stroke-width: 1.5;
+}
+
+/* Petit feedback tactile */
+.rating-label:active svg { transform: scale(0.96); }
+
+/* Réduction d’animation si l’utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+  .rating-label svg { transition: none; }
+  .rating-label:active svg { transform: none; }
+}
+
+/* ====== Mode contraste élevé ======
+   Ta classe .high-contrast booste déjà le contraste global.
+   On force ici un rendu très lisible des étoiles, avec contour. */
+.high-contrast .rating-label svg {
+  fill: #171717 !important;
+  stroke: #fff !important;
+  stroke-width: 2 !important;
+}
+.high-contrast .rating-input:checked ~ .rating-label svg,
+.high-contrast .rating-label:hover svg,
+.high-contrast .rating-label:hover ~ .rating-label svg {
+  fill: #171717 !important; /* reste plein noir pour conserver le contraste */
+}
+
+/* ====== Thème sombre "nuit" (optionnel : affinage) ======
+   Tes variables gèrent déjà la couleur. Ici on assure le "grisé" lisible. */
+:root[data-theme="nuit"] .rating-label svg {
+  /* si tu veux un "gris" un peu plus doux en dark */
+  fill: color-mix(in srgb, var(--text) 35%, transparent);
+}
