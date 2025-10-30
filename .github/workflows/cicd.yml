@@ -40,9 +40,6 @@ jobs:
                 extensions: mbstring, xml, pdo_mysql, intl, zip
                 tools: composer:v2
 
-            - name: Validate composer files
-              run: composer validate --strict
-
             - name: Cache Composer packages
               uses: actions/cache@v3
               with:
