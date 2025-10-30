@@ -17,7 +17,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Installer les dépendances Symfony (mode prod)
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Donner les droits d'accès aux dossiers var/cache et var/log
 RUN chown -R www-data:www-data /var/www/html/var
