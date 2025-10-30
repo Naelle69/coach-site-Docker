@@ -18,12 +18,18 @@ jobs:
                     MYSQL_PASSWORD: test
                 ports: 
                     - 3306:3306
+                options: >-
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=3
 
             mailhog:
                 image: mailhog/mailhog
                 ports:
                 - "1025:1025"
                 - "8025:8025"
+
         steps:
             - uses: actions/checkout@v4
 
@@ -31,9 +37,33 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                 php-version: '8.3'
+                extensions: mbstring, xml, pdo_mysql, intl, zip
+                tools: composer:v2
+
+            - name: Validate composer files
+              run: composer validate --strict
+
+            - name: Cache Composer packages
+              uses: actions/cache@v3
+              with:
+                path: vendor
+                key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                restore-keys: |
+                  ${{ runner.os }}-php-
 
             - name: Install dependencies
-              run: composer install --no-interaction --prefer-dist
+              run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+
+            - name: Run Symfony auto-scripts
+              run: composer run-script auto-scripts
+              env:
+                APP_ENV: test
+
+            - name: Clear cache
+              run: php bin/console cache:clear --env=test
+
+            - name: Create database schema
+              run: php bin/console doctrine:schema:create --env=test
 
             - name: Run tests
               run: php bin/phpunit --testdox
