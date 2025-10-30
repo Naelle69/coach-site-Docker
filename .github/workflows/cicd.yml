@@ -1,0 +1,58 @@
+name: Symfony CI/CD
+
+on:
+    push:
+        branches: ["main"]
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: test
+                    MYSQL_USER: test
+                    MYSQL_PASSWORD: test
+                ports: 
+                    - 3306:3306
+
+            mailhog:
+                image: mailhog/mailhog
+                ports:
+                - "1025:1025"
+                - "8025:8025"
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.3'
+
+            - name: Install dependencies
+              run: composer install --no-interaction --prefer-dist
+
+            - name: Run tests
+              run: php bin/phpunit --testdox
+    
+    docker-build-push:
+        runs-on: ubuntu-latest
+        needs: build-and-test
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: login to docker hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{secrets.USER_NAME}}
+                password: ${{secrets.PASSWORD}}
+
+            - name: Build Docker image
+              run: docker build -t naelle69/coach-site:latest .
+
+            - name: Push Docker image
+              run: docker push naelle69/coach-site:latest

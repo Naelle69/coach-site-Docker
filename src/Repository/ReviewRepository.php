@@ -14,13 +14,19 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-    /** Persiste un avis */
     public function save(Review $review, bool $flush = false): void
     {
-        $em = $this->getEntityManager();
-        $em->persist($review);
+        $this->_em->persist($review);
         if ($flush) {
-            $em->flush();
+            $this->_em->flush();
+        }
+    }
+
+    public function remove(Review $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
     }
 

@@ -41,13 +41,11 @@
       <li class="page-item {{ this.page <= 1 ? 'disabled' }}">
         <a class="page-link" href="?page={{ this.page - 1 }}" aria-label="Précédent">&laquo;</a>
       </li>
-
       {% for i in 1..this.pages %}
         <li class="page-item {{ i == this.page ? 'active' }}">
           <a class="page-link" href="?page={{ i }}">{{ i }}</a>
         </li>
       {% endfor %}
-
       <li class="page-item {{ this.page >= this.pages ? 'disabled' }}">
         <a class="page-link" href="?page={{ this.page + 1 }}" aria-label="Suivant">&raquo;</a>
       </li>
@@ -84,7 +82,7 @@
       </div>
 
       <div class="modal-body">
-        {{ form_start(this.formView, { attr: { class: 'vstack gap-3' } }) }}
+        {{ form_start(this.formView, { action: path('app_review_submit'), method: 'POST', attr: { class: 'vstack gap-3' }}) }}
 
           {# Champs #}
           <div class="d-flex row g-3">
@@ -165,9 +163,10 @@
             />
           </div>
 
-          {# Rendre seulement le token CSRF #}
-          {{ form_row(this.formView._token) }}
-
+          {# Rendre les champs cachés restants (token CSRF, etc.) #}
+          {{ form_rest(this.formView) }}
+          
+          {# Fermer le formulaire sans re-rendre les champs déjà rendus #}
           {# Empêche le rendu des champs non rendus (évite le double affichage des radios) #}
         {{ form_end(this.formView, { render_rest: false }) }}
 
