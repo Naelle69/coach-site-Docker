@@ -59,11 +59,18 @@ jobs:
             - name: Clear cache
               run: php bin/console cache:clear --env=test
 
-            - name: Set DATABASE_URL for tests
-              run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/test" >> $GITHUB_ENV
+            - name: Create database schema
+              run: |
+                php bin/console doctrine:database:drop --force --env=test --if-exists
+                php bin/console doctrine:database:create --env=test
+                php bin/console doctrine:schema:create --env=test
+              env:
+                DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_test
 
             - name: Run tests
               run: php bin/phpunit --testdox
+              env:
+                DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_test
     
     docker-build-push:
         runs-on: ubuntu-latest
